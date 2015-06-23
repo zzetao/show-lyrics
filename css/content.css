@@ -1,0 +1,223 @@
+/*
+*	date: 2015/6/23
+*   author: @zzetao
+*	github: https://github.com/zzetao/lyrics
+*	blog: http://www.zzetao.com
+*/
+#lyric_Con{
+	position:absolute;
+	left:0;
+	right:0;
+	font-family: "Microsoft Yahei", Tahoma, Arial, SimSun, "Hiragino Sans GB", PMingLiu, Verdana, sans-serif;
+	width:600px;
+	height: 85px;
+	margin:0;
+	text-align:center;
+	overflow:hidden;
+	line-height:30px;
+	color:#fff;
+	z-index:9999999999;
+	border:1px solid rgba(255, 255, 255, 0);
+	-webkit-transition:border .3s linear;
+	-webkit-user-select:none;
+}
+#lyric_Con:hover{
+	border:1px solid #fff;
+}
+.lyric_tool{
+	position:absolute;
+	right:0;
+	top:0;
+	opacity:0;
+	-webkit-transition: opacity .3s linear;
+	transition: opacity .3s linear;
+	z-index:2;
+	cursor: pointer;
+	text-shadow: 0 1px 4px #000;
+}
+.lyric_tool div{
+	text-align:center;
+	width: 45px;
+	height:28px;
+	line-height:28px;
+	border-right:2px solid rgba(255, 255, 255, 0);
+	-webkit-transition:border .1s linear;
+}
+.lyric_tool div:hover{
+	border-right-width:2px;
+	border-right-color:#fff;
+}
+.lyric_tool div:active{
+	color:#999;
+	border-right-color:#999;
+}
+.lyric_wrap:hover{cursor:move;}
+.lyric_wrap:hover li{opacity:0.8;}
+#lyric_Con:hover .lyric_tool{
+	opacity:1;
+}
+.lyric_wrap{
+	position:relative;
+	word-wrap: break-word;
+	text-shadow: 0 1px 4px #000;
+}
+.lyric_wrap pre{
+	position:absolute;
+	left:0;
+	right:0;
+	opacity:0.8;
+	font-size:18px;
+	line-height:30px;
+}
+.lyric_wrap li{
+	opacity:0.3;
+	font-size:18px;
+	line-height:30px;
+	position:relative;
+	list-style:none;
+	-webkit-transition:opacity .4s linear;
+}
+.lyric_wrap li span:hover{
+	cursor:pointer;
+	font-weight:bold;
+	-webkit-transition:font-weight .4s linear;
+}
+.lyric_wrap li.l_current{
+	color:#fff;
+	font-weight: bold;
+	opacity:0.8;
+}
+.lyric_wrap li.l_current:before{
+	content: ' ';
+	display: inline-block;
+	width: 8px;
+	border: 6px solid transparent;
+	border-left-color: #FFF;
+	text-shadow: 0 1px 4px #000;
+}
+
+.lyric_sel_wrap{
+	display:none;
+  position: absolute;
+  line-height: 20px;
+  background: #fff;
+  z-index: 3;
+  text-align: left;
+  right: 0;
+}
+.lyric_sel_wrap ul{
+	margin:0;
+	padding:0;
+	height:85px;
+	overflow:auto;
+}
+.lyric_sel_wrap ul li{
+	-webkit-user-select:none;
+	list-style:none;
+	color: #555;
+	border-bottom: 1px solid #ddd;
+	line-height: 20px;
+	height: 20px;
+	padding: 5px 10px;
+	-webkit-transition: background .2s;
+	transition: background .2s;
+}
+.lyric_sel_wrap ul li:hover{
+	cursor:pointer;
+	background:#ddd;
+}
+.lyric_sel_a{
+	float:left;
+	margin-right: 30px;
+}
+.lyric_sel_s{
+	float:right;
+	color: #999;
+}
+
+.lyric_sel_wrap ul li.lyric_sel_nav{
+	padding: 2px 20px;
+  	background: #ddd;
+  	font-size: 12px;
+}
+.lyric_sel_nav_a{
+  	width: 49%;
+  	display: inline-block;
+  	border-right: 1px solid #FFF;
+}
+.lyric_sel_nav_s{
+  	width: 49%;
+  	display: inline-block;
+  	text-align: right;
+}
+.lyric_wrap_drag{
+	opacity:0;
+	position:absolute;
+	width:30px;
+	height:30px;
+	cursor:move;
+	left:0;
+	top:0;
+	background:url(data:image/gif;base64,R0lGODlhMgAyAPcAAP////7+/v39/fz8/Pr6+vn5+fX19fLy8vDw8O/v7+3t7ezs7Orq6unp6efn5+bm5uXl5eTk5OPj4+Li4uDg4NHR0dDQ0M7Ozs3NzczMzMrKysnJycjIyMbGxsXFxcTExMPDw8HBwcDAwL6+vr29vby8vLu7u7m5ubW1tbS0tLKysrGxsbCwsK+vr66urq2traurq6qqqqmpqaenp6ampqWlpaSkpKKioqGhoZ+fn5eXl5aWlpOTk5KSkpGRkY2NjYuLi4qKiomJiYeHh4aGhoWFhYKCgoGBgXBwcGxsbGdnZ2ZmZmVlZWRkZGBgYF9fX11dXVtbW1paWllZWVhYWFRUVE5OTkxMTEtLS0pKSkhISEdHR0ZGRkRERD4+Pjk5OTg4ODc3NzU1NTIyMjAwMC8vLy4uLi0tLSwsLCsrKyoqKikpKSgoKCcnJyYmJiQkJCMjIyIiIiEhISAgIB8fHx0dHRwcHBsbGxkZGRgYGBcXFxYWFhUVFRQUFBMTExISEhERERAQEA8PDw4ODg0NDQwMDAoKCgkJCQgICAcHBwYGBgUFBQQEBAMDAwICAgEBAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACwAAAAAMgAyAAAI/wABCBxIsKDBgwgTKlzIsKHDhxAjSpxIsaLFixgzatzIsaNHhQM+Rsyx5INIhzzYyPkC4qTCAD3goCnTJkwIlwh5tFFjxsyZmiZxEswhhw2aNEfTxAljQajAAVjoqFnDJs0aqnp6OAUQIAKHDB6s8DlyYQOGA1sLJjmUIi1CJYhauD2ohJELpzqyIDjIpNFdgyu4dNAIZM+eBQebNHpxMIYjNSUwBsmDR85eg00cxTiogtCeNCMqDhDyB48dOw8OLoGE4mAOQnX6uIksMQAPQHnu3MmzxcmT38DJ+OHyxLfxJ2Mo3/HzRkOAiASqIMKTpzojSNizQxJ0J5H27IWoV9hftKOARBJyBuHZowdJkCJDiMj/8eUQlB/yixQhAuQKbj2GbOEARSTMEQgfeSRw0BOQMGZQDIrkYYgWEVh0Ah2H7KHAQVFAIsNBMDiSSBcQYGTCHJAwwCEkMxyEAyQUarQBEQYcJAWLB1UwRANOUQEJDXMZNAWOQRLkI5BzCcDCDTboAAcjVtRQww0VbCVAGtktYsgj2RmRlgh+iJjImIpA4kVqaaXgBySMLNIIJGBIECQKgkDy5hcTFAlACn9AIgYFegqkgQ8VBiqQeYYmquiijDbq6KMbBQQAOw==) no-repeat;
+	background-size:cover;
+	z-index:100000000;
+}
+.lyric_shut{
+	opacity:0;
+	position:absolute;
+	width:30px;
+	height:30px;
+	cursor:pointer;
+	left:0;
+	bottom:0;
+	background:url(data:image/gif;base64,R0lGODlhMgAyANUAAP////7+/vv7+/r6+vn5+ePj4+Li4uDg4N7e3tDQ0M/Pz87Ozs3NzcnJycjIyMfHx5KSko2NjYqKiomJiYaGhoWFhX19fXp6enl5eXh4eHZ2dnNzc3FxcXBwcGdnZ2JiYmFhYVtbW1paWllZWRMTExISEhAQEA8PDw0NDQgICAcHBwYGBgUFBQICAgEBAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACwAAAAAMgAyAAAG8UCAcEgsGo/IpHLJbDqf0Kh0Sq1ar9isdsvter/gsHhaQEgNhy2EdMJAIyWTJYAtoF54jpOCxyewCCp9L3pLFYMvDlkXiIVIh4MfAlocjUh8gyIEXJWDjkOYfSIDXp19HUSQfSGkX6Z4qACqeCGbYa8vGRKItWMAuIgjtr4diKKtvkIZxpLJRBMuiBvOQ7ODscnWiNhi1h8blt2IIpPFnmHWmkO4n1vpw0LsXaF46kbyWhHjyPeIGnRXDNxZxe8IrgVYDqRYBS/JqwZYAlhY4QJEQyUaWLTwMCmLggdSGECkRrKkyZMoU6pcybKly5dcggAAOw==) no-repeat;
+	background-size:cover;
+	z-index:100000000;
+}
+#lyric_Con:hover .lyric_wrap_drag,#lyric_Con:hover .lyric_shut{
+	opacity:1;
+}
+
+/*网站自定义样式*/
+#lyric_Con.l_class{
+	left:0;
+	right:0;
+	bottom:48px;
+	margin:0 auto;
+}
+
+#lyric_Con.l_youku{
+	margin: 0 auto;
+	bottom: 45px;
+}
+#lyric_Con.l_qq{
+	left:0;
+	right:0;
+	bottom:45px;
+	margin:0 auto;
+}
+#lyric_Con.l_sohu{
+	left:100px;
+	margin:0;
+	bottom:45px;
+}
+#lyric_Con.l_douban{
+	left: -86px;
+	top: 373px;
+	height:150px;
+	color: #00C35A;
+	background: #fff;
+}
+#lyric_Con.l_douban .lyric_tool div{
+	color:#fff;
+}
+#lyric_Con.l_douban .lyric_wrap{
+	text-shadow:none;
+}
+#lyric_Con.l_douban .lyric_wrap li.l_current{
+	color:#00C35A;
+}
+#lyric_Con.l_douban .lyric_wrap li.l_current::before{
+	text-shadow:none;
+	border-left-color: #00C35A;
+}
