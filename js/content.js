@@ -352,13 +352,6 @@ var getName = {
             	}
             }
             break;
-            case "localhost":
-            {
-                oBody = "body";
-                L.getID("I Believe I Can Fly");
-                //文本歌词 I Believe I Can Fly Ronan Keating
-            }
-            break;
             case "www.letv.com":
             {
             	if($(".seat-list .Li02 .frecy a").text()=="音乐"){
